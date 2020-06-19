@@ -6,11 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-flask = "*"
-beautifulsoup4 = "*"
-requests = "*"
-pymongo = "*"
-passlib = "*"
+flask = "==1.1.2"
+beautifulsoup4 = "==4.9.1"
+requests = "==2.24.0"
+pymongo = "==3.10.1"
+passlib = "==1.7.2"
 python-dotenv = "*"
 
 [requires]
