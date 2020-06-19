@@ -12,6 +12,7 @@ requests = "*"
 pymongo = "*"
 passlib = "*"
 python-dotenv = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
