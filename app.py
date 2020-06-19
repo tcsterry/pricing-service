@@ -16,7 +16,7 @@
 #
 # alert = Alert("47d1a49aec374d678fc68bfa9cee4055", 2000)
 # alert.save_to_mongo()
-import json
+# import json
 from flask import Flask, render_template
 # from views.items import item_blueprint
 from views.alerts import alert_blueprint
@@ -43,5 +43,5 @@ app.register_blueprint(store_blueprint, url_prefix="/stores")
 app.register_blueprint(user_blueprint, url_prefix="/users")
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
