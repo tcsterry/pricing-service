@@ -19,7 +19,6 @@
 # import json
 from flask import Flask, render_template
 # from views.items import item_blueprint
-from common.database import Database
 from views.alerts import alert_blueprint
 from views.stores import store_blueprint
 from views.users import user_blueprint
@@ -30,11 +29,6 @@ app.secret_key = os.urandom(64)
 app.config.update(
     ADMIN=os.environ.get('ADMIN')
 )
-
-
-@app.before_first_request
-def init_db():
-    Database.initialize()
 
 
 @app.route('/')
