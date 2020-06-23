@@ -3,4 +3,4 @@
 # beautifulsoup4==4.9.1
 # requests==2.24.0
 # passlib==1.7.2
-# uwsgi
+uwsgi
