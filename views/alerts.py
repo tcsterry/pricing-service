@@ -18,36 +18,41 @@ def index():
 @requires_login
 def new_alert():
     if request.method == 'POST':
-        alert_name = request.form['name']
+        # alert_name = request.form['name']
         item_url = request.form['item_url']
-        price_limit = float(request.form['price_limit'])
+        # price_limit = float(request.form['price_limit'])
 
         store = Store.find_by_url(item_url)
         item = Item(item_url, store.tag_name, store.query)
         item.load_price()
         item.save_to_mongo()
 
+        alert_name = request.form["name"]
+        price_limit = float(request.form["price_limit"])
+
         Alert(alert_name, item._id, price_limit, session['email']).save_to_mongo()
         # Warning is due to item._id is private object and not supposed to be modified outside of class.
         # However in this case, it is okay as it is used to retrieve data.
 
+    # What happens if it's a GET request
     return render_template('alerts/new_alert.html')
 
 
 @alert_blueprint.route('/edit/<string:alert_id>', methods=['GET', 'POST'])
 @requires_login
 def edit_alert(alert_id):
-    alert = Alert.get_by_id(alert_id)
+    # alert = Alert.get_by_id(alert_id)
 
     if request.method == 'POST':
         price_limit = float(request.form['price_limit'])
 
+        alert = Alert.get_by_id(alert_id)
         alert.price_limit = price_limit
         alert.save_to_mongo()
 
         return redirect(url_for('.index'))
 
-    return render_template('alerts/edit_alert.html', alert=alert)
+    return render_template('alerts/edit_alert.html', alert=Alert.get_by_id(alert_id))
 
 
 @alert_blueprint.route('/delete/<string:alert_id>')

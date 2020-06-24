@@ -1,14 +1,14 @@
 import os
-import pymongo as pymongo
+import pymongo
 from typing import Dict
 
 
 class Database:
     URI = os.environ.get("MONGODB_URI")
-    DATABASE = pymongo.MongoClient(URI).get_database()
+    DATABASE = pymongo.MongoClient(URI).get_default_database()
 
     @staticmethod
-    def insert(collection: str, data: Dict):
+    def insert(collection: str, data: Dict) -> None:
         Database.DATABASE[collection].insert(data)
 
     @staticmethod
@@ -24,5 +24,5 @@ class Database:
         Database.DATABASE[collection].update(query, data, upsert=True)  # If query returns nothing, update data in
 
     @staticmethod
-    def remove(collection: str, query: Dict) -> None:
+    def remove(collection: str, query: Dict) -> Dict:
         return Database.DATABASE[collection].remove(query)

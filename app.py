@@ -17,23 +17,19 @@
 # alert = Alert("47d1a49aec374d678fc68bfa9cee4055", 2000)
 # alert.save_to_mongo()
 # import json
+import os
 from flask import Flask, render_template
 # from views.items import item_blueprint
 from views.alerts import alert_blueprint
 from views.stores import store_blueprint
 from views.users import user_blueprint
-import os
 
 app = Flask(__name__)
+
 app.secret_key = os.urandom(64)
 app.config.update(
     ADMIN=os.environ.get('ADMIN')
 )
-
-
-@app.route('/')
-def home():
-    return render_template('home.html')
 
 
 # app.register_blueprint(item_blueprint, url_prefix="/items (No Longer Required)")
@@ -43,5 +39,9 @@ app.register_blueprint(store_blueprint, url_prefix="/stores")
 app.register_blueprint(user_blueprint, url_prefix="/users")
 
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+@app.route('/')
+def home():    return render_template('home.html')
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

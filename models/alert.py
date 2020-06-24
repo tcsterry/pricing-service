@@ -46,14 +46,19 @@ class Alert(Model):
 
     def notify_if_price_reached(self):
         if self.item.price < self.price_limit:
-            print(f"Item {self.item} has reached a price under {self.price_limit}. Latest price: {self.item.price}.")
+            print(
+                f"Item {self.item} has reached a price under {self.price_limit}. Latest price: {self.item.price}."
+            )
             Mailgun.send_mail(
-                [self.user_email],
-                f'Notification for {self.name}',  # Title
-                f'Your alert {self.name} has reached a price under {self.price_limit}. '  # In normal Text
-                f'The latest price is {self.item.price}. '
-                f'Go to this address to check your item: {self.item.url}.',
-                f'<p>Your alert {self.name} has reached a price under {self.price_limit}.</p>'  # In HTML text
-                f'<p>The latest price is {self.item.price}.</p>'
-                f'<p>Click <a href="{self.item.url}">here</a> to purchase your item.</p>'
+                email=[self.user_email],
+                subject=f"Notification for {self.name}",
+                text=f"Your alert {self.name} has reached a price under {self.price_limit}. The latest price is {self.item.price}. Go to this address to check your item: {self.item.url}.",
+                html=f'<p>Your alert {self.name} has reached a price under {self.price_limit}. The latest price is {self.item.price}. Check your item out <a href="{self.item.url}">here</a>.</p>',
+                # f'Notification for {self.name}',  # Title
+                # f'Your alert {self.name} has reached a price under {self.price_limit}. '  # In normal Text
+                # f'The latest price is {self.item.price}. '
+                # f'Go to this address to check your item: {self.item.url}.',
+                # f'<p>Your alert {self.name} has reached a price under {self.price_limit}.</p>'  # In HTML text
+                # f'<p>The latest price is {self.item.price}.</p>'
+                # f'<p>Click <a href="{self.item.url}">here</a> to purchase your item.</p>'
             )

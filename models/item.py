@@ -30,13 +30,13 @@ class Item(Model):
     _id: str = field(default_factory=lambda: uuid.uuid4().hex)
 
     def load_price(self) -> float:  # Signal function to return float
-        response = requests.get(self.url)
-        content = response.content
+        request = requests.get(self.url)
+        content = request.content
         soup = BeautifulSoup(content, "html.parser")
         element = soup.find(self.tag_name, self.query)
         string_price = element.text.strip()
 
-        pattern = re.compile(r"(\d+,?\d*\.\d\d)")
+        pattern = re.compile(r"(\d+,?\d+\.\d+)")
         # 123.00 or (\d,\d\d\d\.\d\d) = 1,234.00 / ? = Optional
         # + = At least 1 number / * = any numbers
         match = pattern.search(string_price)
